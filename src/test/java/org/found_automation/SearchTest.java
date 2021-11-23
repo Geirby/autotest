@@ -18,6 +18,7 @@ public class SearchTest {
 
         System.setProperty("webdriver.gecko.driver", ConfProperties.getProperty("moziladriver"));
         driver = new FirefoxDriver();
+        searchPage = new SearchPage(driver);
         driver.get(ConfProperties.getProperty("webpage"));
         driver.manage().timeouts().pageLoadTimeout(10000,
                 TimeUnit.MILLISECONDS);
@@ -28,6 +29,7 @@ public class SearchTest {
 
         searchPage.isPageOpen();
         searchPage.enterTextOnSearchField();
+        searchPage.checkTitle();
         searchPage.textValidationAfterSearch();
         searchPage.searchResultValidation();
 
