@@ -6,18 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import static org.found_automation.SearchTest.driver;
-
 
 public class SearchPage {
 
     public WebDriver driver;
 
-    String inputValue = "automation";
+    private String inputValue = "automation";
 
     public SearchPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver=driver;
+        this.driver = driver;
     }
 
     @FindBy(xpath = "//input[@class='gLFyf gsfi']")
@@ -33,7 +31,7 @@ public class SearchPage {
     private WebElement pageTitle;
 
     public void isPageOpen() {
-        Assert.assertTrue(buttonUnderField.isEnabled());
+        Assert.assertTrue(buttonUnderField.isEnabled(), "Button is not found");
     }
 
     public void enterTextOnSearchField() {
@@ -41,15 +39,15 @@ public class SearchPage {
     }
 
     public void textValidationAfterSearch() {
-        Assert.assertEquals(searchField.getAttribute("value"), (inputValue));
+        Assert.assertEquals(searchField.getAttribute("value"), (inputValue), "Search parameter is wrong");
     }
 
     public void searchResultValidation() {
-        Assert.assertTrue(firstSearchResult.getText().contains(inputValue));
+        Assert.assertTrue(firstSearchResult.getText().contains(inputValue), "Search result is wrong");
     }
 
     public void checkTitle() {
-        Assert.assertTrue(driver.getTitle().contains(inputValue));
+        Assert.assertTrue(driver.getTitle().contains(inputValue), "Title is wrong");
     }
 
 

@@ -12,6 +12,8 @@ public class SearchTest {
 
     public static SearchPage searchPage;
     public static WebDriver driver;
+    public static SearchSteps searchSteps;
+    private static Integer timeOuts = 1000;
 
     @BeforeClass
     public static void setup() {
@@ -20,25 +22,23 @@ public class SearchTest {
         driver = new FirefoxDriver();
         searchPage = new SearchPage(driver);
         driver.get(ConfProperties.getProperty("webpage"));
-        driver.manage().timeouts().pageLoadTimeout(10000,
+        driver.manage().timeouts().pageLoadTimeout(timeOuts,
                 TimeUnit.MILLISECONDS);
     }
 
     @Test
     public void searchTest() {
 
-        searchPage.isPageOpen();
-        searchPage.enterTextOnSearchField();
-        searchPage.checkTitle();
-        searchPage.textValidationAfterSearch();
-        searchPage.searchResultValidation();
-
+        searchSteps = new SearchSteps(searchPage);
+        searchSteps.checkThatPageIsOpen();
+        searchSteps.enterSearchValue();
+        searchSteps.titleOfPageIsCorrect();
+        searchSteps.searchRequestIsCorrect();
+        searchSteps.searchResultIsCorrect();
     }
 
     @AfterClass
     public static void tearDown() {
         driver.quit();
     }
-
-
 }
