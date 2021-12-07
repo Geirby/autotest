@@ -11,44 +11,54 @@ public class SearchPage {
 
     public WebDriver driver;
 
-    private String inputValue = "automation";
-
     public SearchPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//input[@class='gLFyf gsfi']")
+    @FindBy(id = "text")
     private WebElement searchField;
 
-    @FindBy(xpath = "//h3")
+    @FindBy(className = "OrganicTitleContentSpan")
     private WebElement firstSearchResult;
-
-    @FindBy(xpath = "//input[@class='gNO89b']")
-    private WebElement buttonUnderField;
 
     @FindBy(xpath = "//head/title/text()")
     private WebElement pageTitle;
 
+    @FindBy(id = "uniq16385244871821")
+    private WebElement searchFieldAfterReq;
+
+    @FindBy(xpath ="//span/span/span" )
+    private WebElement clearIcon;
+
     public void isPageOpen() {
-        Assert.assertTrue(buttonUnderField.isEnabled(), "Button is not found");
+        Assert.assertTrue(searchField.isEnabled(), "Logo is not found");
+    }
+    public String enterValue(String value) {
+        return value;
     }
 
-    public void enterTextOnSearchField() {
-        searchField.sendKeys(inputValue, Keys.ENTER);
+    public void enterTextOnSearchField(String value) {
+        searchField.sendKeys(value, Keys.ENTER);
     }
 
-    public void textValidationAfterSearch() {
-        Assert.assertEquals(searchField.getAttribute("value"), (inputValue), "Search parameter is wrong");
+    public void enterTextOnSearchFieldAfterReq(String value) {
+        searchFieldAfterReq.sendKeys(value, Keys.ENTER);
     }
 
-    public void searchResultValidation() {
-        Assert.assertTrue(firstSearchResult.getText().contains(inputValue), "Search result is wrong");
+    public String getFirstSearchResult() {
+       return firstSearchResult.getText();
     }
 
-    public void checkTitle() {
-        Assert.assertTrue(driver.getTitle().contains(inputValue), "Title is wrong");
+    public String getTextFromSearchFieldAfterReq() {
+        return searchFieldAfterReq.getAttribute("value");
     }
 
+    public WebElement getClearIcon(){
+        return getClearIcon();
+    }
 
+    public WebElement getSearchFieldAfterReq(){
+        return searchFieldAfterReq;
+    }
 }
